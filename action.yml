@@ -1,0 +1,23 @@
+name: Fail if the secret is not passed
+description: This action will pass if a correct secret (hunter2) is passed, and fail otherwise.
+branding:
+  icon: lock
+  color: blue
+
+inputs:
+  secret:
+    description: 'The secret to check for'
+
+runs:
+  using: composite
+  steps:
+    - run: echo "Version 1 is running!"
+      shell: bash
+    - run: |
+        if [ "${{ inputs.secret }}" != "hunter2" ]; then
+          echo "Secret is incorrect!"
+          exit 1
+        else
+          echo "Secret is correct!"
+        fi
+      shell: bash
